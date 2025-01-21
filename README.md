@@ -1,7 +1,7 @@
 # Battleship.BACKEND
+## Online Battleship Game Simulator
 
-## Project Overview
-This is an application to play games of Battleship. A user can login with secure authentication. A user can play a game of battleship either against a computer or against another player. 
+This is an full stack application to play games of Battleship. A user can login with secure authentication. A user can play a game of battleship against a computer. 
 Games played are restorable through different sessions under the same user. A user account will keep track of wins and losses. 
 
 ## MVP features
@@ -9,11 +9,11 @@ Games played are restorable through different sessions under the same user. A us
 - A user can create an account
 - A user can login with secure authentication
 - A user can play a game of battleship against a computer opponent
-    - A user can place ships upon the start of a game
-    - Turns alternate between the user and computer
-    - A turn consists of selecting a space on a grid, and reutrning whether that space contained an enenmy ship
-    - If a turn is successful, that player that fired continutes their turn
-    - If a turn is unsucesssful, the turn ends and it is the other players turn
+    - A user can place ships upon the start of a game.
+    - Turns alternate between the user and computer.
+    - A turn consists of selecting a space on a grid, and reutrning whether that space contained an enenmy ship.
+    - If a turn is successful, that player that fired continutes their turn.
+    - If a turn is unsucesssful, the turn ends and it is the other players turn.
     - If all enemy ships have been hit, game over player wins.
 - A user can view their wins and losses
 - A user can logout
