@@ -2,7 +2,7 @@
 
 ## Project Overview
 This is an application to play games of Battleship. A user can login with secure authentication. A user can play a game of battleship either against a computer or against another player. 
-Games played are restorable through different seessions under the same user. A user account will keep track of wins and losses. 
+Games played are restorable through different sessions under the same user. A user account will keep track of wins and losses. 
 
 ## MVP features
 
