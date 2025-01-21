@@ -1,11 +1,9 @@
 # Battleship.BACKEND
 ## Online Battleship Game Simulator
 
-This is an full stack application to play games of Battleship. A user can login with secure authentication. A user can play a game of battleship against a computer. 
-Games played are restorable through different sessions under the same user. A user account will keep track of wins and losses. 
+A full-stack application that allows users to play a simulation based on the board game Battleship. Utilizes secure authentication to verify user account creation and log-in. Once logged in, users can engage in games against a computer. Game state can be maintained across multiple sessions. Users will also be able to track their wins and losses.
 
 ## MVP features
-
 - A user can create an account
 - A user can login with secure authentication
 - A user can play a game of battleship against a computer opponent
