@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Battleship.API.Controller;
 
-[Route("api/[controller]")]
+[Route("api/CellFired")]
 [ApiController]
 
 public class CellFiredContoller : ControllerBase{
@@ -14,17 +14,17 @@ public class CellFiredContoller : ControllerBase{
 
 
     [HttpGet]
-    [Route("id/{id}")]
+    [Route("/{id}")]
     public IActionResult GetCellById(int id){
         
         try 
         {
             var res = _cellFiredService.GetCellById(id);
-            return OK(res);
+            return Ok(res);
         }
         catch (Exception e)
         {
-            return Confilct(e);
+            return Conflict(e);
         }
     }
 
@@ -34,7 +34,7 @@ public class CellFiredContoller : ControllerBase{
         try
         {
             var res = _cellFiredService.NewCellFired(cell);
-            return OK(res);
+            return Ok(res);
         } 
         catch (Exception e)
         {
@@ -47,7 +47,7 @@ public class CellFiredContoller : ControllerBase{
         try
         {
             var res = _cellFiredService.GetAllFiredCells();
-            return OK(res);
+            return Ok(res);
         } 
         catch (Exception e)
         {
@@ -56,12 +56,12 @@ public class CellFiredContoller : ControllerBase{
     }
 
     [HttpGet]
-    [Route("id/{boardId}")]
+    [Route("Board/{boardId}")]
     public IActionResult GetAllFiredCellsByBoardId(int boardId){
         try
         {
             var res = _cellFiredService.GetAllFiredCellsByBoardId(boardId);
-            return OK(res);
+            return Ok(res);
         } 
         catch (Exception e)
         {
@@ -74,7 +74,7 @@ public class CellFiredContoller : ControllerBase{
         try
         {
             var res = _cellFiredService.UpdateCell(cell);
-            return OK(res);
+            return Ok(res);
         } 
         catch (Exception e)
         {

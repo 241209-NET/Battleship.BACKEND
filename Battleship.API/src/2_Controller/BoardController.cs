@@ -14,12 +14,11 @@ public class BoardController : ControllerBase {
     public BoardController(IBoardService boardService) => _boardService = boardService;
 
     [HttpGet]
-    [Route("id/{id}")]
     public IActionResult GetBoardById(int id){
         try
         {
             var res = _boardService.GetBoardById(id);
-            return OK(res);
+            return Ok(res);
         } 
         catch (Exception e)
         {
@@ -28,12 +27,12 @@ public class BoardController : ControllerBase {
     }
 
     [HttpGet]
-    [Route("id/{gameId}")]
-    public IActionResult GetBoardsByGameId(int id){
+    [Route("{gameId}")]
+    public IActionResult GetBoardsByGameId(int gameId){
         try
         {
-            var res = _boardService.GetBoardsByGameId(id);
-            return OK(res);
+            var res = _boardService.GetBoardsByGameId(gameId);
+            return Ok(res);
         } 
         catch (Exception e)
         {
@@ -46,7 +45,7 @@ public class BoardController : ControllerBase {
         try
         {
             var res = _boardService.CreateNewBoard(b);
-            return OK(res);
+            return Ok(res);
         } 
         catch (Exception e)
         {

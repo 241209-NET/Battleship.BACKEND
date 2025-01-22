@@ -21,7 +21,7 @@ public class BoardService : IBoardService
     }
 
     public List<Board> GetBoardsByGameId(int id){
-        if (_gameRepository.GetGameByID(id) == null) throw new DoesNotExistException("Game Does Not Exist!");
+        if (_gameRepository.GetGameById(id) == null) throw new DoesNotExistException("Game Does Not Exist!");
         return _boardRepository.GetBoardsByGameId(id);
     }
 

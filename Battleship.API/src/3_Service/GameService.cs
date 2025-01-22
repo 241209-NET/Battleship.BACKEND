@@ -24,9 +24,7 @@ public class GameService : IGameService
 
     public Game GetGameById(int id)
     {
-        var foundGame = _gameRepository.GetGameById(id);
-        if(foundGame is null)
-            throw new Exception("This game ID does not exist!");
+        var foundGame = _gameRepository.GetGameById(id) ?? throw new Exception("This game ID does not exist!");
         return foundGame;
     }
 
