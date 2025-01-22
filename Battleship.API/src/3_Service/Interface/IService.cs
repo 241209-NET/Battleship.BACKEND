@@ -4,7 +4,19 @@ namespace Battleship.API.Service;
 
 public interface IBoardService{}
 
-public interface ICellFiredService{}
+public interface ICellFiredService{
+
+    public CellFired GetCellById(int id);
+    
+    public CellFired NewCellFired(CellFired cell);
+
+    public List<CellFired>? GetAllFiredCells();
+
+    public List<CellFired>? GetAllFiredCellsByBoardId(int boardId);
+
+    public CellFired UpdateCell(CellFired cell);
+
+}
 
 public interface IGameService
 {
