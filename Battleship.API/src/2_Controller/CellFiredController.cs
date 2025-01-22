@@ -14,7 +14,7 @@ public class CellFiredContoller : ControllerBase{
 
 
     [HttpGet]
-    [Route("/{id}")]
+    [Route("{id}")]
     public IActionResult GetCellById(int id){
         
         try 
