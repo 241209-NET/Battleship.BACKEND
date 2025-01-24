@@ -3,7 +3,6 @@ using Battleship.API.Model;
 
 namespace Battleship.API.Repository;
 
-<<<<<<< Updated upstream
 public interface IBoardRepository{
     public Board GetBoardById(int id);
 
@@ -38,12 +37,6 @@ public interface IShipRepository
     public Ship GetShipById(int id);
     public Ship UpdateShip(Ship ship);
 }
-public interface IUserRepository{}
-=======
-public interface IBoardRepository{}
-public interface ICellFiredRepository{}
-public interface IGameRepository{}
-public interface IShipRepository{}
 public interface IUserRepository{
     Task<User> CreateUser(User newUser);
     
@@ -51,4 +44,3 @@ public interface IUserRepository{
     Task<User>? GetUserByUsername(string username);
     
 }
->>>>>>> Stashed changes
