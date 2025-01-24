@@ -22,6 +22,8 @@ public interface ICellFiredRepository{
 
     public CellFired UpdateCell(CellFired cell);
 
+    public bool AlreadyFiredAt(int boardId, int x, int y);
+
 }
 public interface IGameRepository
 {

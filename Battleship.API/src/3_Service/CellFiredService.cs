@@ -21,7 +21,11 @@ public class CellFiredService : ICellFiredService
 
     
     public CellFired NewCellFired(CellFired cell){
-        if (_cellFiredRepository.GetCellById(cell.Id) != null) throw new AlreadyExistsException("Space Already Fired At!");
+
+        if (_boardRepository.GetBoardById(cell.BoardId) == null) throw new DoesNotExistException("No Board Found Matching given ID!");
+
+        if (AlreadyFiredAt(cell.BoardId, cell.X, cell.Y)) throw new AlreadyExistsException("Space Already Fired At!");
+        
         return _cellFiredRepository.NewCellFired(cell);
     }
 
@@ -37,6 +41,9 @@ public class CellFiredService : ICellFiredService
     public CellFired UpdateCell(CellFired cell){
         GetCellById(cell.Id); // will throw exception if cell doesnt exist
         return _cellFiredRepository.UpdateCell(cell);
+    }
+    private bool AlreadyFiredAt(int boardId, int x, int y){
+        return _cellFiredRepository.AlreadyFiredAt(boardId, x, y);
     }
 
 

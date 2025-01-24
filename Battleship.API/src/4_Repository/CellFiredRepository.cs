@@ -36,4 +36,9 @@ public class CellFiredRepository : ICellFiredRepository
         return cell;
     }
 
+    public bool AlreadyFiredAt(int boardId, int x, int y)
+    {
+        return _battleshipContext.CellFired.Where(b => b.BoardId == boardId).Any(cell => cell.X == x && cell.Y == y);
+    }
+
 }
