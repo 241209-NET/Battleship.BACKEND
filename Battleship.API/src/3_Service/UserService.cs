@@ -11,4 +11,29 @@ public class UserService : IUserService
         _userRepository = userRepository; 
     }
 
+    public async Task<User> CreateUser(User newUser)
+    {
+        return await _userRepository.CreateUser(newUser);
+    }
+
+    public async Task<User>? GetUserById(int id)
+    {
+        var foundUser =
+            await _userRepository.GetUserById(id)!
+            ?? throw new ArgumentException($"User with ID {id} not found.");
+        return foundUser;
+    }
+
+    public async Task<User>? GetUserByUsername(string username)
+    {
+        if (string.IsNullOrWhiteSpace(username))
+        {
+            throw new ArgumentException("Username cannot be null or empty.", nameof(username));
+        }
+        var foundUser =
+            await _userRepository.GetUserByUsername(username)!
+            ?? throw new InvalidOperationException($"User with username '{username}' not found.");
+        return foundUser;
+    }
+
 }
