@@ -41,4 +41,9 @@ public interface IShipService
     public Ship UpdateShip(Ship ship);
 }
 
-public interface IUserService{}
+public interface IUserService{
+    Task<User> CreateUser(User newUser);    
+    Task<User>? GetUserById(int id);
+    Task<User>? GetUserByUsername(string username);
+    
+}
