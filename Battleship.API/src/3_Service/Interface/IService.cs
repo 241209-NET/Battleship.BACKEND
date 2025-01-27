@@ -35,10 +35,10 @@ public interface IGameService
 
 public interface IShipService
 {
-    public Ship CreateShip(Ship ship);
-    public IEnumerable<Ship> GetAllShip();
-    public Ship GetShipById(int id);
-    public Ship UpdateShip(Ship ship);
+    public Task<Ship> CreateShip(Ship ship);
+    public Task<IEnumerable<Ship>> GetAllShip();
+    public Task<Ship> GetShipById(int id);
+    public Task<Ship> UpdateShip(Ship ship);
 }
 
 public interface IUserService{
