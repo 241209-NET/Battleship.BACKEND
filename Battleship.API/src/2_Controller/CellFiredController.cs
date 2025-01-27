@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Battleship.API.Model;
 using Battleship.API.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,11 @@ public class CellFiredContoller : ControllerBase{
 
     [HttpGet]
     [Route("{id}")]
-    public IActionResult GetCellById(int id){
+    public async Task<IActionResult> GetCellById(int id){
         
         try 
         {
-            var res = _cellFiredService.GetCellById(id);
+            var res = await _cellFiredService.GetCellById(id);
             return Ok(res);
         }
         catch (Exception e)
@@ -29,11 +30,11 @@ public class CellFiredContoller : ControllerBase{
     }
 
     [HttpPost]
-    public IActionResult NewCellFired(CellFired cell){
+    public async Task<IActionResult> NewCellFired(CellFired cell){
         
         try
         {
-            var res = _cellFiredService.NewCellFired(cell);
+            var res = await _cellFiredService.NewCellFired(cell);
             return Ok(res);
         } 
         catch (Exception e)
@@ -43,10 +44,10 @@ public class CellFiredContoller : ControllerBase{
     }
 
     [HttpGet]
-    public IActionResult GetAllFiredCells(){
+    public async Task<IActionResult> GetAllFiredCells(){
         try
         {
-            var res = _cellFiredService.GetAllFiredCells();
+            var res = await _cellFiredService.GetAllFiredCells();
             return Ok(res);
         } 
         catch (Exception e)
@@ -57,10 +58,10 @@ public class CellFiredContoller : ControllerBase{
 
     [HttpGet]
     [Route("Board/{boardId}")]
-    public IActionResult GetAllFiredCellsByBoardId(int boardId){
+    public async Task<IActionResult> GetAllFiredCellsByBoardId(int boardId){
         try
         {
-            var res = _cellFiredService.GetAllFiredCellsByBoardId(boardId);
+            var res = await _cellFiredService.GetAllFiredCellsByBoardId(boardId);
             return Ok(res);
         } 
         catch (Exception e)
@@ -70,10 +71,10 @@ public class CellFiredContoller : ControllerBase{
     }
 
     [HttpPatch]
-    public IActionResult UpdateCell(CellFired cell){
+    public async Task<IActionResult> UpdateCell(CellFired cell){
         try
         {
-            var res = _cellFiredService.UpdateCell(cell);
+            var res = await _cellFiredService.UpdateCell(cell);
             return Ok(res);
         } 
         catch (Exception e)

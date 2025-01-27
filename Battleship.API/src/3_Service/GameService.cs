@@ -11,26 +11,27 @@ public class GameService : IGameService
         _gameRepository = gameRepository; 
     }
 
-    public Game CreateGame(Game game)
+    public async Task<Game> CreateGame(Game game)
     {
-        var savedGame = _gameRepository.CreateGame(game);
+        var savedGame = await _gameRepository.CreateGame(game);
         return savedGame;
     }
 
-    public IEnumerable<Game> GetAllGames()
+    public async Task<IEnumerable<Game>> GetAllGames()
     {
-        return _gameRepository.GetAllGames();
+        var games = await _gameRepository.GetAllGames();
+        return games;
     }
 
-    public Game GetGameById(int id)
+    public async Task<Game> GetGameById(int id)
     {
-        var foundGame = _gameRepository.GetGameById(id) ?? throw new Exception("This game ID does not exist!");
+        var foundGame = await _gameRepository.GetGameById(id) ?? throw new Exception("This game ID does not exist!");
         return foundGame;
     }
 
-    public Game UpdateGame(Game game)
+    public async Task<Game> UpdateGame(Game game)
     {
-        var gametoUpdate = GetGameById(game.Id);
+        var gametoUpdate = await GetGameById(game.Id);
         gametoUpdate.Status = game.Status;
         gametoUpdate.PlayerTurn = game.PlayerTurn;
         gametoUpdate.StartTime = game.StartTime;

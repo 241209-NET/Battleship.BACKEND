@@ -4,40 +4,40 @@ using Battleship.API.Model;
 namespace Battleship.API.Repository;
 
 public interface IBoardRepository{
-    public Board GetBoardById(int id);
+    public Task<Board> GetBoardById(int id);
 
-    public List<Board> GetBoardsByGameId(int id);
+    public Task<List<Board>> GetBoardsByGameId(int id);
 
-    public Board CreateNewBoard(Board b);
+    public Task<Board> CreateNewBoard(Board b);
 
 }
 public interface ICellFiredRepository{
 
-    public CellFired GetCellById(int id);
-    public CellFired NewCellFired(CellFired cell);
+    public Task<CellFired> GetCellById(int id);
+    public Task<CellFired> NewCellFired(CellFired cell);
 
-    public List<CellFired> GetAllFiredCells();
+    public Task<List<CellFired>> GetAllFiredCells();
 
-    public List<CellFired> GetAllFiredCellsByBoardId(int boardId);
+    public Task<List<CellFired>> GetAllFiredCellsByBoardId(int boardId);
 
-    public CellFired UpdateCell(CellFired cell);
+    public Task<CellFired> UpdateCell(CellFired cell);
 
-    public bool AlreadyFiredAt(int boardId, int x, int y);
+    public Task<bool> AlreadyFiredAt(int boardId, int x, int y);
 
 }
 public interface IGameRepository
 {
-    public Game CreateGame(Game game);
-    public IEnumerable<Game> GetAllGames();
-    public Game GetGameById(int id);
-    public Game UpdateGame(Game game);
+    public Task<Game> CreateGame(Game game);
+    public Task<IEnumerable<Game>> GetAllGames();
+    public Task<Game> GetGameById(int id);
+    public Task<Game> UpdateGame(Game game);
 }
 public interface IShipRepository
 {
-    public Ship CreateShip(Ship ship);
-    public IEnumerable<Ship> GetAllShip();
-    public Ship GetShipById(int id);
-    public Ship UpdateShip(Ship ship);
+    public Task<Ship> CreateShip(Ship ship);
+    public Task<IEnumerable<Ship>> GetAllShip();
+    public Task<Ship> GetShipById(int id);
+    public Task<Ship> UpdateShip(Ship ship);
 }
 public interface IUserRepository{
     Task<User> CreateUser(User newUser);

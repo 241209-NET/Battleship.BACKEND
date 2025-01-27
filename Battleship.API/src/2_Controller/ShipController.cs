@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Battleship.API.Model;
 using Battleship.API.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,11 @@ public class ShipController : ControllerBase
     public ShipController(IShipService shipService) => _shipService = shipService;
 
     [HttpPost]
-    public IActionResult CreateShip([FromBody] Ship ship)
+    public async Task<IActionResult> CreateShip([FromBody] Ship ship)
     {
         try
         {
-            var createdShip = _shipService.CreateShip(ship);
+            var createdShip = await _shipService.CreateShip(ship);
             return Ok(createdShip);
         }
         catch (Exception ex)
@@ -27,19 +28,19 @@ public class ShipController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAllShips()
+    public async Task<IActionResult> GetAllShips()
     {
-        var shipList = _shipService.GetAllShip();
+        var shipList = await _shipService.GetAllShip();
         return Ok(shipList);
     }
 
 
     [HttpGet("id/{id}")]
-    public IActionResult GetShipById(int id)
+    public async Task<IActionResult> GetShipById(int id)
     {
         try
         {
-            var foundShip = _shipService.GetShipById(id);
+            var foundShip = await _shipService.GetShipById(id);
             return Ok(foundShip);
         }
         catch (Exception ex)
@@ -49,11 +50,11 @@ public class ShipController : ControllerBase
     }
 
     [HttpPatch]
-    public IActionResult UpdateShip([FromBody] Ship ship)
+    public async Task<IActionResult> UpdateShip([FromBody] Ship ship)
     {
         try
         {
-            var updatedShip = _shipService.UpdateShip(ship);
+            var updatedShip = await _shipService.UpdateShip(ship);
             return Ok(updatedShip);
         }
         catch (Exception ex)

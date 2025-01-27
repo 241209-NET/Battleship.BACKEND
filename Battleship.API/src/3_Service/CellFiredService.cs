@@ -2,6 +2,7 @@
 using Battleship.API.Repository;
 using Battleship.API.Model;
 using Battleship.API.Exceptions;
+using System.Threading.Tasks;
 
 namespace Battleship.API.Service;
 
@@ -15,35 +16,35 @@ public class CellFiredService : ICellFiredService
         _boardRepository = boardRepository;
     }
 
-    public CellFired GetCellById(int id){
-        return _cellFiredRepository.GetCellById(id) ?? throw new DoesNotExistException("Cell not yet fired at!");
+    public async Task<CellFired> GetCellById(int id){
+        return await _cellFiredRepository.GetCellById(id) ?? throw new DoesNotExistException("Cell not yet fired at!");
     }
 
     
-    public CellFired NewCellFired(CellFired cell){
+    public async Task<CellFired> NewCellFired(CellFired cell){
 
-        if (_boardRepository.GetBoardById(cell.BoardId) == null) throw new DoesNotExistException("No Board Found Matching given ID!");
+        if (await _boardRepository.GetBoardById(cell.BoardId) == null) throw new DoesNotExistException("No Board Found Matching given ID!");
 
-        if (AlreadyFiredAt(cell.BoardId, cell.X, cell.Y)) throw new AlreadyExistsException("Space Already Fired At!");
+        if (await AlreadyFiredAt(cell.BoardId, cell.X, cell.Y)) throw new AlreadyExistsException("Space Already Fired At!");
         
-        return _cellFiredRepository.NewCellFired(cell);
+        return await _cellFiredRepository.NewCellFired(cell);
     }
 
-    public List<CellFired>? GetAllFiredCells(){
-        return _cellFiredRepository.GetAllFiredCells();
+    public async Task<List<CellFired>?> GetAllFiredCells(){
+        return await _cellFiredRepository.GetAllFiredCells();
     }
 
-    public List<CellFired>? GetAllFiredCellsByBoardId(int boardId){
-        if (_boardRepository.GetBoardById(boardId) == null) throw new DoesNotExistException("No Board Found Matching given ID!");
-        return _cellFiredRepository.GetAllFiredCellsByBoardId(boardId);
+    public async Task<List<CellFired>?> GetAllFiredCellsByBoardId(int boardId){
+        if (await _boardRepository.GetBoardById(boardId) == null) throw new DoesNotExistException("No Board Found Matching given ID!");
+        return await _cellFiredRepository.GetAllFiredCellsByBoardId(boardId);
     }
 
-    public CellFired UpdateCell(CellFired cell){
-        GetCellById(cell.Id); // will throw exception if cell doesnt exist
-        return _cellFiredRepository.UpdateCell(cell);
+    public async Task<CellFired> UpdateCell(CellFired cell){
+        await GetCellById(cell.Id); // will throw exception if cell doesnt exist
+        return await _cellFiredRepository.UpdateCell(cell);
     }
-    private bool AlreadyFiredAt(int boardId, int x, int y){
-        return _cellFiredRepository.AlreadyFiredAt(boardId, x, y);
+    public async Task<bool> AlreadyFiredAt(int boardId, int x, int y){
+        return await _cellFiredRepository.AlreadyFiredAt(boardId, x, y);
     }
 
 

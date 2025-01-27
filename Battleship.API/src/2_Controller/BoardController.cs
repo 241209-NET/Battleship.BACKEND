@@ -14,10 +14,10 @@ public class BoardController : ControllerBase {
     public BoardController(IBoardService boardService) => _boardService = boardService;
 
     [HttpGet]
-    public IActionResult GetBoardById(int id){
+    public async Task<IActionResult> GetBoardById(int id){
         try
         {
-            var res = _boardService.GetBoardById(id);
+            var res = await _boardService.GetBoardById(id);
             return Ok(res);
         } 
         catch (Exception e)
@@ -28,10 +28,10 @@ public class BoardController : ControllerBase {
 
     [HttpGet]
     [Route("{gameId}")]
-    public IActionResult GetBoardsByGameId(int gameId){
+    public async Task<IActionResult> GetBoardsByGameId(int gameId){
         try
         {
-            var res = _boardService.GetBoardsByGameId(gameId);
+            var res = await _boardService.GetBoardsByGameId(gameId);
             return Ok(res);
         } 
         catch (Exception e)
@@ -41,10 +41,10 @@ public class BoardController : ControllerBase {
     }
 
     [HttpPost]
-    public IActionResult CreateNewBoard(Board b){
+    public async Task<IActionResult> CreateNewBoard(Board b){
         try
         {
-            var res = _boardService.CreateNewBoard(b);
+            var res = await _boardService.CreateNewBoard(b);
             return Ok(res);
         } 
         catch (Exception e)
