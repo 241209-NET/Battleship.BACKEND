@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Battleship.API.Model;
 using Battleship.API.Service;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using Microsoft.AspNetCore.Identity;
+using Battleship.API.DTO;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -23,58 +26,56 @@ public class UserController : ControllerBase
         _configuration = configuration;
     }
 
-    // Register a new user
     [HttpPost("/register")]
-    public async Task<IActionResult> CreateNewUser(User newUser)
+    public async Task<IActionResult> SignUp(UserManager<User> userManager, UserRegisterDTO userRegister)
     {
-        var trainer = await _userService.CreateUser(newUser);      
-
-        return Ok(trainer);
+        User addUser = new User(){UserName = userRegister.Email, Email = userRegister.Email, AccountName = userRegister.AccountName }; 
+        var result = await userManager.CreateAsync(addUser, userRegister.Password);
+        if (result.Succeeded)
+            return Ok(result); 
+        else
+            return BadRequest(result);
     }
 
-    // POST: api/User/login
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] User userCredentials)
-    {
-        if (string.IsNullOrWhiteSpace(userCredentials.Username))
-            return BadRequest("Username cannot be empty.");
+    [HttpPost("/login")]
+    public async Task<IActionResult> Login(UserManager<User> userManager, UserLoginDTO userLoginDTO){
+  
+        var userLogin = await userManager.FindByEmailAsync(userLoginDTO.Email); 
 
-        // 1) Look up user by username //Update the GetUserByUsername in Controller with GetUserWithToken
-        var user = await _userService.GetUserByUsername(userCredentials.Username)!;
-        if (user == null)
-            return NotFound("User not found.");
-
-        // 2) verify password
-        if (user.Password != userCredentials.Password)
+        if(userLogin is not null)
         {
-            return Unauthorized("Invalid credentials.");
-        }
+            if(await userManager.CheckPasswordAsync(userLogin, userLoginDTO.Password)){
+                //return the JWT
+                var signInKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AppSettings:JWTSecret"]!)); 
+                
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                        //new Claim("UserID", userLogin.Id.ToString()) //Do we need the id? 
+                        new Claim("UserAccount", userLogin.AccountName.ToString())
+                    }), 
+                    Expires = DateTime.UtcNow.AddMinutes(60),
+                    SigningCredentials = new SigningCredentials(
+                        signInKey,
+                        SecurityAlgorithms.HmacSha256Signature
+                    )
+                };
+                var tokenHandler = new JwtSecurityTokenHandler(); 
+                var securityToken = tokenHandler.CreateToken(tokenDescriptor); 
+                var token = tokenHandler.WriteToken(securityToken); 
+                return Ok(new {token}); 
+            }else{
+                return BadRequest(new {message = "Username or password is incorrect"}); 
 
-        if (user != null)
-        {
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]!),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim("UserId", user.Id.ToString()),
-                new Claim("Username", user.Username!.ToString()),
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
-            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(
-                _configuration["Jwt:Issuer"],
-                _configuration["Jwt:Audience"],
-                claims,
-                expires: DateTime.UtcNow.AddMinutes(60),
-                signingCredentials: signIn
-            );
-            string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
-            return Ok(new { Token = tokenValue, User = user });
-        }
-        return NoContent();
+            }
+        } else{
+                return BadRequest(new {message = "Username or password is incorrect"}); 
+            }
+        
     }
 
+<<<<<<< Updated upstream
     [HttpGet]
 
     public async Task<IActionResult> GetAllUsers(){
@@ -88,6 +89,25 @@ public class UserController : ControllerBase
              return Conflict(e.Message);
         }
     }
+=======
+     // [HttpGet("{username}")]
+    // public IActionResult GetAccountInfo(string username)
+    // {
+    //     try
+    //     {
+    //         var userInfo = _userService.GetUserByUsername(username);
+    //         return Ok(userInfo);
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         return Conflict(ex.Message);
+    //     }
+    // }
+
+
+
+
+>>>>>>> Stashed changes
 
 
 
