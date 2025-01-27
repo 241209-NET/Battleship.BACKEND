@@ -22,7 +22,7 @@ public class BoardService : IBoardService
     }
 
     public async Task<List<Board>> GetBoardsByGameId(int id){
-        if (_gameRepository.GetGameById(id) == null) throw new DoesNotExistException("Game Does Not Exist!");
+        if (await _gameRepository.GetGameById(id) == null) throw new DoesNotExistException("Game Does Not Exist!");
         return await _boardRepository.GetBoardsByGameId(id);
     }
 

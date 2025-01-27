@@ -23,6 +23,7 @@ public interface ICellFiredService{
 
     public Task<CellFired> UpdateCell(CellFired cell);
 
+    public Task<bool> AlreadyFiredAt(int boardId, int x, int y);
 }
 
 public interface IGameService

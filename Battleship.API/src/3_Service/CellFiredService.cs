@@ -23,9 +23,9 @@ public class CellFiredService : ICellFiredService
     
     public async Task<CellFired> NewCellFired(CellFired cell){
 
-        if (_boardRepository.GetBoardById(cell.BoardId) == null) throw new DoesNotExistException("No Board Found Matching given ID!");
+        if (await _boardRepository.GetBoardById(cell.BoardId) == null) throw new DoesNotExistException("No Board Found Matching given ID!");
 
-        if (AlreadyFiredAt(cell.BoardId, cell.X, cell.Y)) throw new AlreadyExistsException("Space Already Fired At!");
+        if (await AlreadyFiredAt(cell.BoardId, cell.X, cell.Y)) throw new AlreadyExistsException("Space Already Fired At!");
         
         return await _cellFiredRepository.NewCellFired(cell);
     }
@@ -35,7 +35,7 @@ public class CellFiredService : ICellFiredService
     }
 
     public async Task<List<CellFired>?> GetAllFiredCellsByBoardId(int boardId){
-        if (_boardRepository.GetBoardById(boardId) == null) throw new DoesNotExistException("No Board Found Matching given ID!");
+        if (await _boardRepository.GetBoardById(boardId) == null) throw new DoesNotExistException("No Board Found Matching given ID!");
         return await _cellFiredRepository.GetAllFiredCellsByBoardId(boardId);
     }
 
@@ -43,8 +43,8 @@ public class CellFiredService : ICellFiredService
         await GetCellById(cell.Id); // will throw exception if cell doesnt exist
         return await _cellFiredRepository.UpdateCell(cell);
     }
-    private bool AlreadyFiredAt(int boardId, int x, int y){
-        return _cellFiredRepository.AlreadyFiredAt(boardId, x, y);
+    public async Task<bool> AlreadyFiredAt(int boardId, int x, int y){
+        return await _cellFiredRepository.AlreadyFiredAt(boardId, x, y);
     }
 
 

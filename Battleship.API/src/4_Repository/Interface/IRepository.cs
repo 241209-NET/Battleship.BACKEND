@@ -22,7 +22,7 @@ public interface ICellFiredRepository{
 
     public Task<CellFired> UpdateCell(CellFired cell);
 
-    public bool AlreadyFiredAt(int boardId, int x, int y);
+    public Task<bool> AlreadyFiredAt(int boardId, int x, int y);
 
 }
 public interface IGameRepository

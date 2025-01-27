@@ -156,7 +156,7 @@ public class CellFiredTesting
             .ReturnsAsync(cell2);
 
         mockCell.Setup(m => m.AlreadyFiredAt(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
-        .Returns((int boardId, int x, int y) => {
+        .ReturnsAsync((int boardId, int x, int y) => {
             var found = cells.Any(cell => boardId == cell.BoardId && x == cell.X && y == cell.Y);
             return found;
         });
