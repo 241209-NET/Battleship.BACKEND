@@ -4,11 +4,11 @@ using Battleship.API.Model;
 namespace Battleship.API.Repository;
 
 public interface IBoardRepository{
-    public Board GetBoardById(int id);
+    public Task<Board> GetBoardById(int id);
 
-    public List<Board> GetBoardsByGameId(int id);
+    public Task<List<Board>> GetBoardsByGameId(int id);
 
-    public Board CreateNewBoard(Board b);
+    public Task<Board> CreateNewBoard(Board b);
 
 }
 public interface ICellFiredRepository{

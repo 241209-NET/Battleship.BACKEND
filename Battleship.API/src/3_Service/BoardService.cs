@@ -2,6 +2,7 @@
 using Battleship.API.Repository;
 using Battleship.API.Model;
 using Battleship.API.Exceptions;
+using System.Threading.Tasks;
 namespace Battleship.API.Service;
 
 
@@ -16,16 +17,16 @@ public class BoardService : IBoardService
         _gameRepository = gameRepository;
     }
 
-    public Board GetBoardById(int id){
-        return _boardRepository.GetBoardById(id) ?? throw new DoesNotExistException("Board Does Not Exist!");
+    public async Task<Board> GetBoardById(int id){
+        return await _boardRepository.GetBoardById(id) ?? throw new DoesNotExistException("Board Does Not Exist!");
     }
 
-    public List<Board> GetBoardsByGameId(int id){
+    public async Task<List<Board>> GetBoardsByGameId(int id){
         if (_gameRepository.GetGameById(id) == null) throw new DoesNotExistException("Game Does Not Exist!");
-        return _boardRepository.GetBoardsByGameId(id);
+        return await _boardRepository.GetBoardsByGameId(id);
     }
 
-    public Board CreateNewBoard(Board b){
-        return _boardRepository.CreateNewBoard(b);
+    public async Task<Board> CreateNewBoard(Board b){
+        return await _boardRepository.CreateNewBoard(b);
     }
 }
