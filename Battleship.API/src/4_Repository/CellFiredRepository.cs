@@ -1,5 +1,7 @@
 using Battleship.API.Model;
 using Battleship.API.Data;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Battleship.API.Repository;
 
@@ -12,27 +14,27 @@ public class CellFiredRepository : ICellFiredRepository
         => _battleshipContext = battleshipContext;
 
 
-    public CellFired GetCellById(int id){
-        return _battleshipContext.CellFired.Find(id);
+    public async Task<CellFired> GetCellById(int id){
+        return await _battleshipContext.CellFired.FindAsync(id);
     }
 
-    public CellFired NewCellFired(CellFired cell){
-        _battleshipContext.CellFired.Add(cell);
-        _battleshipContext.SaveChanges();
+    public async Task<CellFired> NewCellFired(CellFired cell){
+        await _battleshipContext.CellFired.AddAsync(cell);
+        await _battleshipContext.SaveChangesAsync();
         return cell; 
     }
 
-    public List<CellFired> GetAllFiredCells(){
-        return _battleshipContext.CellFired.ToList();
+    public async Task<List<CellFired>> GetAllFiredCells(){
+        return await _battleshipContext.CellFired.ToListAsync();
     }
 
-    public List<CellFired> GetAllFiredCellsByBoardId(int boardId){
-        return _battleshipContext.CellFired.Where(cell => cell.BoardId == boardId).ToList();
+    public async Task<List<CellFired>> GetAllFiredCellsByBoardId(int boardId){
+        return await _battleshipContext.CellFired.Where(cell => cell.BoardId == boardId).ToListAsync();
     }
 
-    public CellFired UpdateCell(CellFired cell){
+    public async Task<CellFired> UpdateCell(CellFired cell){
         _battleshipContext.CellFired.Update(cell);
-        _battleshipContext.SaveChanges();
+        await _battleshipContext.SaveChangesAsync();
         return cell;
     }
 

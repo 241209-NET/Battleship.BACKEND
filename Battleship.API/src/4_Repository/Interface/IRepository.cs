@@ -13,14 +13,14 @@ public interface IBoardRepository{
 }
 public interface ICellFiredRepository{
 
-    public CellFired GetCellById(int id);
-    public CellFired NewCellFired(CellFired cell);
+    public Task<CellFired> GetCellById(int id);
+    public Task<CellFired> NewCellFired(CellFired cell);
 
-    public List<CellFired> GetAllFiredCells();
+    public Task<List<CellFired>> GetAllFiredCells();
 
-    public List<CellFired> GetAllFiredCellsByBoardId(int boardId);
+    public Task<List<CellFired>> GetAllFiredCellsByBoardId(int boardId);
 
-    public CellFired UpdateCell(CellFired cell);
+    public Task<CellFired> UpdateCell(CellFired cell);
 
     public bool AlreadyFiredAt(int boardId, int x, int y);
 
