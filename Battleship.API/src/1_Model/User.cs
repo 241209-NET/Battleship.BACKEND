@@ -1,10 +1,10 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace Battleship.API.Model;
 
-public class User
+public class User : IdentityUser
 {
-    public int Id { get; set; }
-    public string Username { get; set; }
-    public string Password { get; set; }
+    public string? AccountName { get; set; }
     public int NumWins { get; set; }
     public int NumLosses { get; set; }
 }

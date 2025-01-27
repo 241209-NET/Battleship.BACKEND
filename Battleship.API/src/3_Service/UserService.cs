@@ -36,6 +36,18 @@ public class UserService : IUserService
         return foundUser;
     }
 
+    // public User GetUserByUsername(string username)
+    // {
+    //     if (string.IsNullOrWhiteSpace(username))
+    //     {
+    //         throw new ArgumentException("Username cannot be null or empty.", nameof(username));
+    //     }
+    //     var foundUser =
+    //          _userRepository.GetUserByUsername(username)!
+    //         ?? throw new InvalidOperationException($"User with username '{username}' not found.");
+    //     return foundUser;
+    // }
+
     public async Task<IEnumerable<User>> GetAllUsers(){
         return await _userRepository.GetAllUsers();
     }
