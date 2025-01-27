@@ -27,10 +27,10 @@ public interface ICellFiredRepository{
 }
 public interface IGameRepository
 {
-    public Game CreateGame(Game game);
-    public IEnumerable<Game> GetAllGames();
-    public Game GetGameById(int id);
-    public Game UpdateGame(Game game);
+    public Task<Game> CreateGame(Game game);
+    public Task<IEnumerable<Game>> GetAllGames();
+    public Task<Game> GetGameById(int id);
+    public Task<Game> UpdateGame(Game game);
 }
 public interface IShipRepository
 {

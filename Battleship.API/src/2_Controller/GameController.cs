@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Battleship.API.Model;
 using Battleship.API.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,11 @@ public class GameController : ControllerBase
     public GameController(IGameService gameService) => _gameService = gameService;
 
     [HttpPost]
-    public IActionResult CreateGame([FromBody] Game game)
+    public async Task<IActionResult> CreateGame([FromBody] Game game)
     {
         try
         {
-            var createdGame = _gameService.CreateGame(game);
+            var createdGame = await _gameService.CreateGame(game);
             return Ok(createdGame);
         }
         catch (Exception ex)
@@ -27,19 +28,19 @@ public class GameController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAllGames()
+    public async Task<IActionResult> GetAllGames()
     {
-        var GameList = _gameService.GetAllGames();
+        var GameList = await _gameService.GetAllGames();
         return Ok(GameList);
     }
 
 
     [HttpGet("id/{id}")]
-    public IActionResult GetGameById(int id)
+    public async Task<IActionResult> GetGameById(int id)
     {
         try
         {
-            var foundGame = _gameService.GetGameById(id);
+            var foundGame = await _gameService.GetGameById(id);
             return Ok(foundGame);
         }
         catch (Exception ex)
@@ -49,11 +50,11 @@ public class GameController : ControllerBase
     }
 
     [HttpPatch]
-    public IActionResult UpdateGame([FromBody] Game Game)
+    public async Task<IActionResult> UpdateGame([FromBody] Game Game)
     {
         try
         {
-            var updatedGame = _gameService.UpdateGame(Game);
+            var updatedGame = await _gameService.UpdateGame(Game);
             return Ok(updatedGame);
         }
         catch (Exception ex)

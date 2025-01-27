@@ -1,5 +1,7 @@
 using Battleship.API.Model;
 using Battleship.API.Data;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Battleship.API.Repository;
 
@@ -11,28 +13,28 @@ public class GameRepository : IGameRepository
     public GameRepository (BattleshipContext battleshipContext)
         => _battleshipContext = battleshipContext;
 
-    public Game CreateGame(Game game)
+    public async Task<Game> CreateGame(Game game)
     {
-        _battleshipContext.Games.Add(game);
-        _battleshipContext.SaveChanges();
+        await _battleshipContext.Games.AddAsync(game);
+        await _battleshipContext.SaveChangesAsync();
         return game;
     }
 
-    public IEnumerable<Game> GetAllGames()
+    public async Task<IEnumerable<Game>> GetAllGames()
     {
-        return _battleshipContext.Games.ToList();
+        return await _battleshipContext.Games.ToListAsync();
     }
 
-    public Game GetGameById(int id)
+    public async Task<Game> GetGameById(int id)
     {
-        var game = _battleshipContext.Games.Find(id);
+        var game = await _battleshipContext.Games.FindAsync(id);
         return game;
     }
 
-    public Game UpdateGame(Game game)
+    public async Task<Game> UpdateGame(Game game)
     {
         _battleshipContext.Games.Update(game);
-        _battleshipContext.SaveChanges();
+        await _battleshipContext.SaveChangesAsync();
         return game;
     }
 }
