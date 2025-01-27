@@ -75,6 +75,19 @@ public class UserController : ControllerBase
         return NoContent();
     }
 
+    [HttpGet]
+
+    public async Task<IActionResult> GetAllUsers(){
+        try
+        {
+            var res = await _userService.GetAllUsers();
+            return Ok(res);
+        } 
+        catch (Exception e)
+        {
+             return Conflict(e.Message);
+        }
+    }
 
 
 

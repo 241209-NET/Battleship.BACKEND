@@ -36,4 +36,8 @@ public class UserService : IUserService
         return foundUser;
     }
 
+    public async Task<IEnumerable<User>> GetAllUsers(){
+        return await _userRepository.GetAllUsers();
+    }
+
 }

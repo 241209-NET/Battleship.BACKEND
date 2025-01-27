@@ -1,5 +1,6 @@
 using Battleship.API.Model;
 using Battleship.API.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Battleship.API.Repository;
 
@@ -28,4 +29,10 @@ public class UserRepository : IUserRepository
     {
         return await _battleshipContext.Users.FindAsync(id);
     }
+
+    public async Task<IEnumerable<User>> GetAllUsers()
+    {
+        return await _battleshipContext.Users.ToListAsync();
+    }
+
 }
