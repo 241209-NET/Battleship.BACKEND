@@ -75,9 +75,7 @@ public class UserController : ControllerBase
         
     }
 
-<<<<<<< Updated upstream
     [HttpGet]
-
     public async Task<IActionResult> GetAllUsers(){
         try
         {
@@ -89,8 +87,8 @@ public class UserController : ControllerBase
              return Conflict(e.Message);
         }
     }
-=======
-     // [HttpGet("{username}")]
+
+    // [HttpGet("{username}")]
     // public IActionResult GetAccountInfo(string username)
     // {
     //     try
@@ -107,7 +105,6 @@ public class UserController : ControllerBase
 
 
 
->>>>>>> Stashed changes
 
 
 

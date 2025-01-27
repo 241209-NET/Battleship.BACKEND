@@ -56,7 +56,7 @@ builder.Services.AddSwaggerGen(options => {
 //in "Authorize" button at top right of swagger endpoints list
 
 builder.Services.AddDbContext<BattleshipContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BattleshipDB-Local")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BattleshipDB")));
 
 builder.Services.AddScoped<IBoardService, BoardService>();
 builder.Services.AddScoped<ICellFiredService, CellFiredService>();
