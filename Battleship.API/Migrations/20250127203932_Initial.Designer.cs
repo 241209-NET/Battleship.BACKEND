@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Battleship.API.Migrations
 {
     [DbContext(typeof(BattleshipContext))]
-    [Migration("20250125170040_UsernameNullable")]
-    partial class UsernameNullable
+    [Migration("20250127203932_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

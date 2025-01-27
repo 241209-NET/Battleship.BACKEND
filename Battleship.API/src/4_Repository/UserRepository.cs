@@ -20,11 +20,9 @@ public class UserRepository : IUserRepository
 
     }
 
-    public User GetUserByUsername(string username)
+    public async Task<User> GetUserByUsername(string username)
     {
-        return _battleshipContext.Users.FirstOrDefault(u => u.UserName == username);
-        //Where(u => u.UserName.Contains(username));
-        //o => o.Id == id
+        return await _battleshipContext.Users.FindAsync(username);
     }
 
     public async Task<User> GetUserById(int id)

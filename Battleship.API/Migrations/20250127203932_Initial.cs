@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Battleship.API.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialWithIdentity : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,7 +30,7 @@ namespace Battleship.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AccountName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AccountName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NumWins = table.Column<int>(type: "int", nullable: false),
                     NumLosses = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
