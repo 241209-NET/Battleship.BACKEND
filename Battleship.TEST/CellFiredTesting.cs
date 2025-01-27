@@ -3,13 +3,14 @@ using Battleship.API.Model;
 using Battleship.API.Service;
 using Battleship.API.Repository;
 using Battleship.API.Exceptions;
+using System.Threading.Tasks;
 namespace Battleship.TEST;
 
 public class CellFiredTesting
 {
 
     [Fact]
-    public void CreateNewCell(){
+    public async Task CreateNewCell(){
         Mock<ICellFiredRepository> mockCell = new();
         Mock<IBoardRepository> mockBoard = new();
         CellFiredService _cellService = new(mockCell.Object, mockBoard.Object);
@@ -45,12 +46,12 @@ public class CellFiredTesting
 
         mockCell.Setup(m => m.NewCellFired(It.IsAny<CellFired>()))
             .Callback((CellFired t) => cells.Add(t))  
-            .Returns(cell2);
+            .ReturnsAsync(cell2);
 
         mockBoard.Setup(m => m.GetBoardById(It.IsAny<int>()))
-            .Returns((int id) => boards.FirstOrDefault(b => b.Id == id));
+            .ReturnsAsync((int id) => boards.FirstOrDefault(b => b.Id == id));
         
-        _cellService.NewCellFired(cell2);
+        await _cellService.NewCellFired(cell2);
 
         Assert.Contains(cell2, cells);
         mockCell.Verify(m => m.NewCellFired(It.IsAny<CellFired>()), Times.Once());
@@ -94,13 +95,13 @@ public class CellFiredTesting
 
         mockCell.Setup(m => m.NewCellFired(It.IsAny<CellFired>()))
             .Callback((CellFired t) => cells.Add(t))  
-            .Returns(cell2);
+            .ReturnsAsync(cell2);
 
         mockBoard.Setup(m => m.GetBoardById(It.IsAny<int>()))
-            .Returns((int id) => boards.FirstOrDefault(b => b.Id == id));
+            .ReturnsAsync((int id) => boards.FirstOrDefault(b => b.Id == id));
         
 
-        Assert.Throws<DoesNotExistException>(() => _cellService.NewCellFired(cell2));
+        Assert.ThrowsAsync<DoesNotExistException>(async () => await _cellService.NewCellFired(cell2));
         mockCell.Verify(m => m.NewCellFired(It.IsAny<CellFired>()), Times.Never());
 
     }
@@ -152,7 +153,7 @@ public class CellFiredTesting
 
         mockCell.Setup(m => m.NewCellFired(It.IsAny<CellFired>()))
             .Callback((CellFired t) => cells.Add(t))  
-            .Returns(cell2);
+            .ReturnsAsync(cell2);
 
         mockCell.Setup(m => m.AlreadyFiredAt(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
         .Returns((int boardId, int x, int y) => {
@@ -161,19 +162,19 @@ public class CellFiredTesting
         });
 
         mockBoard.Setup(m => m.GetBoardById(It.IsAny<int>()))
-            .Returns((int id) => boards.FirstOrDefault(t => t.Id == id));
+            .ReturnsAsync((int id) => boards.FirstOrDefault(t => t.Id == id));
 
 
 
 
-        Assert.Throws<AlreadyExistsException>(() => _cellService.NewCellFired(cell2));
+        Assert.ThrowsAsync<AlreadyExistsException>(async () => await _cellService.NewCellFired(cell2));
         mockCell.Verify(m => m.NewCellFired(It.IsAny<CellFired>()), Times.Never());
 
     }
 
 
     [Fact]
-    public void GetCellById(){
+    public async Task GetCellById(){
         Mock<ICellFiredRepository> mockCell = new();
         Mock<IBoardRepository> mockBoard = new();
         CellFiredService _cellService = new(mockCell.Object, mockBoard.Object);
@@ -199,9 +200,9 @@ public class CellFiredTesting
         List<CellFired> cells = [cell1, cell2];
 
         mockCell.Setup(m => m.GetCellById(It.IsAny<int>())) 
-            .Returns((int id) => cells.FirstOrDefault(t => t.Id == id));
+            .ReturnsAsync((int id) => cells.FirstOrDefault(t => t.Id == id));
         
-        var c = _cellService.GetCellById(1);
+        var c = await _cellService.GetCellById(1);
 
         Assert.Equal(cells[0], c);
         mockCell.Verify(m => m.GetCellById(It.IsAny<int>()), Times.Once());
@@ -235,16 +236,16 @@ public class CellFiredTesting
         List<CellFired> cells = [cell1, cell2];
 
         mockCell.Setup(m => m.GetCellById(It.IsAny<int>())) 
-            .Returns((int id) => cells.FirstOrDefault(t => t.Id == id));
+            .ReturnsAsync((int id) => cells.FirstOrDefault(t => t.Id == id));
 
 
-        Assert.Throws<DoesNotExistException>(() => _cellService.GetCellById(3));
+        Assert.ThrowsAsync<DoesNotExistException>(() => _cellService.GetCellById(3));
         mockCell.Verify(m => m.GetCellById(It.IsAny<int>()), Times.Once());
 
     }
 
     [Fact]
-    public void GetAllFiredCells(){
+    public async Task GetAllFiredCells(){
         
         Mock<ICellFiredRepository> mockCell = new();
         Mock<IBoardRepository> mockBoard = new();
@@ -271,9 +272,9 @@ public class CellFiredTesting
         List<CellFired> cells = [cell1, cell2];
 
         mockCell.Setup(m => m.GetAllFiredCells()) 
-            .Returns(cells);
+            .ReturnsAsync(cells);
         
-        var c = _cellService.GetAllFiredCells();
+        var c = await _cellService.GetAllFiredCells();
 
         Assert.Equal(cells, c);
         mockCell.Verify(m => m.GetAllFiredCells(), Times.Once());
@@ -284,7 +285,7 @@ public class CellFiredTesting
     [InlineData(1,3)]
     [InlineData(2,1)]
 
-    public void GetAllFiredCellsByBoardId(int id, int count){
+    public async Task GetAllFiredCellsByBoardId(int id, int count){
         
         Mock<ICellFiredRepository> mockCell = new();
         Mock<IBoardRepository> mockBoard = new();
@@ -347,12 +348,12 @@ public class CellFiredTesting
         List<Board> boards = [board1, board2];
 
         mockCell.Setup(m => m.GetAllFiredCellsByBoardId(It.IsAny<int>()))
-            .Returns((int id) => cells.Where(t => t.BoardId == id).ToList());
+            .ReturnsAsync((int id) => cells.Where(t => t.BoardId == id).ToList());
 
         mockBoard.Setup(m => m.GetBoardById(It.IsAny<int>()))
-            .Returns((int id) => boards.FirstOrDefault(t => t.Id == id));
+            .ReturnsAsync((int id) => boards.FirstOrDefault(t => t.Id == id));
         
-        var c = _cellService.GetAllFiredCellsByBoardId(id);
+        var c = await _cellService.GetAllFiredCellsByBoardId(id);
         Assert.Equal(count, c.Count);
         if (id == 1){
             Assert.Contains(cell1, c);
@@ -371,7 +372,7 @@ public class CellFiredTesting
 // UPDATE
 
     [Fact]
-    public void UpdateCell(){
+    public async Task UpdateCell(){
         
         Mock<ICellFiredRepository> mockCell = new();
         Mock<IBoardRepository> mockBoard = new();
@@ -398,7 +399,7 @@ public class CellFiredTesting
         List<CellFired> cells = [cell1];
 
         mockCell.Setup(m => m.UpdateCell(It.IsAny<CellFired>()))
-            .Returns((CellFired cell) =>{
+            .ReturnsAsync((CellFired cell) =>{
                 var found = cells.Find(c => c.Id == cell.Id);
                 found.Status = cell.Status;
                 found.X = cell.X;
@@ -407,10 +408,10 @@ public class CellFiredTesting
             });
 
         mockCell.Setup(m => m.GetCellById(It.IsAny<int>())) 
-            .Returns((int id) => cells.FirstOrDefault(t => t.Id == id));
+            .ReturnsAsync((int id) => cells.FirstOrDefault(t => t.Id == id));
 
-        var c = _cellService.UpdateCell(cell2update);
-        var check = _cellService.GetCellById(1);
+        var c = await _cellService.UpdateCell(cell2update);
+        var check = await _cellService.GetCellById(1);
 
         Assert.Equal("Miss", check.Status);
         mockCell.Verify(m => m.UpdateCell(It.IsAny<CellFired>()), Times.Once());

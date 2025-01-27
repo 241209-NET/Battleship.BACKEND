@@ -3,12 +3,13 @@ using Battleship.API.Model;
 using Battleship.API.Service;
 using Battleship.API.Repository;
 using Battleship.API.Exceptions;
+using System.Threading.Tasks;
 namespace Battleship.TEST;
 
 public class BoardTesting
 {
     [Fact]
-    public void CreateNewBoard()
+    public async Task CreateNewBoard()
     {
 
     Mock<IBoardRepository> mockBoard = new();
@@ -36,9 +37,9 @@ public class BoardTesting
 
     mockBoard.Setup(m => m.CreateNewBoard(It.IsAny<Board>()))
         .Callback((Board t) => boards.Add(t))  
-        .Returns(board2);
+        .ReturnsAsync(board2);
 
-    _boardService.CreateNewBoard(board2);
+    await _boardService.CreateNewBoard(board2);
 
     Assert.Contains(board2, boards);
     mockBoard.Verify(m => m.CreateNewBoard(It.IsAny<Board>()), Times.Once());
@@ -46,7 +47,7 @@ public class BoardTesting
     }
 
     [Fact]
-    public void GetBoardById()
+    public async Task GetBoardById()
     {
 
     Mock<IBoardRepository> mockBoard = new();
@@ -73,9 +74,9 @@ public class BoardTesting
     
 
     mockBoard.Setup(m => m.GetBoardById(It.IsAny<int>()))
-        .Returns((int id) => boards.FirstOrDefault(t => t.Id == id));
+        .ReturnsAsync((int id) => boards.FirstOrDefault(t => t.Id == id));
 
-    var b = _boardService.GetBoardById(2);
+    var b = await _boardService.GetBoardById(2);
 
     Assert.Equal(boards[1], b);
     mockBoard.Verify(m => m.GetBoardById(It.IsAny<int>()), Times.Once());
@@ -110,9 +111,9 @@ public class BoardTesting
     
 
     mockBoard.Setup(m => m.GetBoardById(It.IsAny<int>()))
-        .Returns((int id) => boards.FirstOrDefault(t => t.Id == id));
+        .ReturnsAsync((int id) => boards.FirstOrDefault(t => t.Id == id));
 
-    Assert.Throws<DoesNotExistException>(() => _boardService.GetBoardById(3));
+    Assert.ThrowsAsync<DoesNotExistException>(async () => await _boardService.GetBoardById(3));
     mockBoard.Verify(m => m.GetBoardById(It.IsAny<int>()), Times.Once());
 
     }
@@ -120,7 +121,7 @@ public class BoardTesting
     [Theory]
     [InlineData(1, 2)]
     [InlineData(2, 1)]
-    public void GetBoardsByGameId(int id,int exp)
+    public async Task GetBoardsByGameId(int id,int exp)
     {
 
     Mock<IBoardRepository> mockBoard = new();
@@ -178,12 +179,12 @@ public class BoardTesting
     
 
     mockBoard.Setup(m => m.GetBoardsByGameId(It.IsAny<int>()))
-            .Returns((int id) => boards.Where(t => t.GameId == id).ToList());
+            .ReturnsAsync((int id) => boards.Where(t => t.GameId == id).ToList());
 
     mockGame.Setup(m => m.GetGameById(It.IsAny<int>()))
-            .Returns((int id) => games.FirstOrDefault(t => t.Id == id));
+            .ReturnsAsync((int id) => games.FirstOrDefault(t => t.Id == id));
 
-    var result = _boardService.GetBoardsByGameId(id);
+    var result = await _boardService.GetBoardsByGameId(id);
 
     Assert.Equal(exp, result.Count);
     if (id == 1){
@@ -246,12 +247,12 @@ public class BoardTesting
     
 
     mockBoard.Setup(m => m.GetBoardsByGameId(It.IsAny<int>()))
-            .Returns((int id) => boards.Where(t => t.GameId == id).ToList());
+            .ReturnsAsync((int id) => boards.Where(t => t.GameId == id).ToList());
 
     mockGame.Setup(m => m.GetGameById(It.IsAny<int>()))
-            .Returns((int id) => games.FirstOrDefault(t => t.Id == id));
+            .ReturnsAsync((int id) => games.FirstOrDefault(t => t.Id == id));
 
-    Assert.Throws<DoesNotExistException>(() => _boardService.GetBoardsByGameId(3));
+    Assert.ThrowsAsync<DoesNotExistException>(async () => await _boardService.GetBoardsByGameId(3));
     mockBoard.Verify(m => m.GetBoardsByGameId(It.IsAny<int>()), Times.Never());
 
     }
