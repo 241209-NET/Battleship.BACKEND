@@ -52,7 +52,7 @@ public class UserController : ControllerBase
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                        //new Claim("UserID", userLogin.Id.ToString()) //Do we need the id? 
+                        new Claim("UserID", userLogin.Id.ToString()),
                         new Claim("UserAccount", userLogin.AccountName.ToString())
                     }), 
                     Expires = DateTime.UtcNow.AddMinutes(60),
