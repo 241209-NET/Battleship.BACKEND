@@ -2,6 +2,7 @@ using Battleship.API.Model;
 using Battleship.API.Data;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Battleship.API.Service;
 
 namespace Battleship.API.Repository;
 
@@ -29,6 +30,12 @@ public class GameRepository : IGameRepository
     {
         var game = await _battleshipContext.Games.FindAsync(id);
         return game;
+    }
+
+    public async Task<IEnumerable<Game>> GetGamesByUser(string userID)
+    {
+        return await _battleshipContext.Games.Where(o => o.UserId.Contains(userID)).ToListAsync(); 
+         
     }
 
     public async Task<Game> UpdateGame(Game game)

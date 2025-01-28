@@ -29,7 +29,7 @@ public interface ICellFiredService{
 public interface IGameService
 {
     public Task<Game> CreateGame(Game game);
-    public Task<IEnumerable<Game>> GetAllGames();
+    public Task<IEnumerable<Game>> GetAllGames(string userID);
     public Task<Game> GetGameById(int id);
     public Task<Game> UpdateGame(Game game);
 }

@@ -1,7 +1,9 @@
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Battleship.API.Model;
 using Battleship.API.Service;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Versioning;
 
 namespace Battleship.API.Controller;
 
@@ -10,8 +12,13 @@ namespace Battleship.API.Controller;
 public class GameController : ControllerBase
 {
     private readonly IGameService _gameService;
+    private readonly IHttpContextAccessor _http; 
 
-    public GameController(IGameService gameService) => _gameService = gameService;
+    public GameController(IGameService gameService, IHttpContextAccessor http)
+    {
+        _gameService = gameService;
+        _http = http; 
+    }
 
     [HttpPost]
     public async Task<IActionResult> CreateGame([FromBody] Game game)
@@ -30,12 +37,19 @@ public class GameController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllGames()
     {
-        var GameList = await _gameService.GetAllGames();
-        return Ok(GameList);
+        try{
+            ClaimsPrincipal user = _http.HttpContext.User;
+            string userID = user.Claims.First(x => x.Type == "UserID").Value; 
+            var GameList = await _gameService.GetAllGames(userID);
+            return Ok(GameList);
+        }catch{
+             return Unauthorized(); 
+        }
+
     }
 
 
-    [HttpGet("id/{id}")]
+    [HttpGet("id/{id}")] 
     public async Task<IActionResult> GetGameById(int id)
     {
         try

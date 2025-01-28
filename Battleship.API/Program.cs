@@ -55,6 +55,8 @@ builder.Services.AddSwaggerGen(options => {
 //in swagger can add token by typing "Bearer [bearertokenvalue]" and it will add it to the headers
 //in "Authorize" button at top right of swagger endpoints list
 
+builder.Services.AddHttpContextAccessor(); 
+
 builder.Services.AddDbContext<BattleshipContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BattleshipDB")));
 
@@ -69,6 +71,8 @@ builder.Services.AddScoped<ICellFiredRepository, CellFiredRepository>();
 builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IShipRepository, ShipRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+//builder.Services.AddScoped<IHttpContextAccessor, HttpContextAccessor>(); 
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

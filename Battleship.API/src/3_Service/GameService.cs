@@ -1,14 +1,17 @@
 using Battleship.API.Repository;
 using Battleship.API.Model;
+using System.Security.Claims;
 
 namespace Battleship.API.Service;
 
 public class GameService : IGameService 
 {
     private readonly IGameRepository _gameRepository;
+    private readonly IHttpContextAccessor _http; 
 
-    public GameService(IGameRepository gameRepository){
+    public GameService(IGameRepository gameRepository, IHttpContextAccessor http){
         _gameRepository = gameRepository; 
+        _http = http; 
     }
 
     public async Task<Game> CreateGame(Game game)
@@ -17,9 +20,10 @@ public class GameService : IGameService
         return savedGame;
     }
 
-    public async Task<IEnumerable<Game>> GetAllGames()
+    public async Task<IEnumerable<Game>> GetAllGames(string userID)
     {
-        var games = await _gameRepository.GetAllGames();
+        var games = await _gameRepository.GetGamesByUser(userID);
+
         return games;
     }
 

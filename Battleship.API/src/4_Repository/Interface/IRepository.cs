@@ -31,6 +31,7 @@ public interface IGameRepository
     public Task<IEnumerable<Game>> GetAllGames();
     public Task<Game> GetGameById(int id);
     public Task<Game> UpdateGame(Game game);
+     public Task<IEnumerable<Game>> GetGamesByUser(string userID); 
 }
 public interface IShipRepository
 {
