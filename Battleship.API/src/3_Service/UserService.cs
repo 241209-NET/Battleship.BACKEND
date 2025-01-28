@@ -21,7 +21,7 @@ public class UserService : IUserService
         var foundUser =
             await _userRepository.GetUserById(id)!
             ?? throw new ArgumentException($"User with ID {id} not found.");
-        return foundUser;
+        return foundUser; 
     }
 
     public async Task<User>? GetUserByUsername(string username)
