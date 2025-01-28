@@ -44,7 +44,7 @@ public interface IShipService
 
 public interface IUserService{
     Task<User> CreateUser(User newUser);    
-    Task<User>? GetUserById(int id);
+    Task<User>? GetUserById(string id);
     Task<User>? GetUserByUsername(string username);
 
     Task<IEnumerable<User>> GetAllUsers();

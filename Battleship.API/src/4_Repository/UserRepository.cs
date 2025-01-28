@@ -25,7 +25,7 @@ public class UserRepository : IUserRepository
         return await _battleshipContext.Users.FindAsync(username);
     }
 
-    public async Task<User> GetUserById(int id)
+    public async Task<User> GetUserById(string id)
     {
         return await _battleshipContext.Users.FindAsync(id);
     }

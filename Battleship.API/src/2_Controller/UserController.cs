@@ -12,6 +12,8 @@ using Battleship.API.Service;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Microsoft.AspNetCore.Identity;
 using Battleship.API.DTO;
+using System.ComponentModel;
+using System.Net.Sockets;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -19,11 +21,13 @@ public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
     private readonly IConfiguration _configuration;
+    private readonly IHttpContextAccessor _http; 
 
-    public UserController(IUserService userService, IConfiguration configuration)
+    public UserController(IUserService userService, IConfiguration configuration, IHttpContextAccessor http)
     {
         _userService = userService;
         _configuration = configuration;
+        _http = http; 
     }
 
     [HttpPost("/register")]
@@ -84,6 +88,23 @@ public class UserController : ControllerBase
         {
             var res = await _userService.GetAllUsers();
             return Ok(res);
+        } 
+        catch (Exception e)
+        {
+             return Conflict(e.Message);
+        }
+    }
+
+    [HttpGet("/Score")]
+    public async Task<IActionResult> GetCurrentUserScore(){
+        try
+        {
+            ClaimsPrincipal user = _http.HttpContext.User;
+            string userID = user.Claims.First(x => x.Type == "UserID").Value; 
+
+            var res = await _userService.GetUserById(userID);
+            UserScoreDTO score = new UserScoreDTO(){Wins = res.NumWins, Losses = res.NumLosses}; 
+            return Ok(score);
         } 
         catch (Exception e)
         {

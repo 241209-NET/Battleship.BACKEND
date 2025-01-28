@@ -14,3 +14,10 @@ public class UserLoginDTO
     public required string Email { get; set; }
     public required string Password { get; set; }
 }
+
+public class UserScoreDTO
+{
+    public string? AccountName { get; set; }
+    public required int Wins { get; set; }
+    public required int Losses { get; set; }
+}

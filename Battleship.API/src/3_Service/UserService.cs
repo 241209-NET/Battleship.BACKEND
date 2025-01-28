@@ -16,10 +16,10 @@ public class UserService : IUserService
         return await _userRepository.CreateUser(newUser);
     }
 
-    public async Task<User>? GetUserById(int id)
+    public async Task<User>? GetUserById(string id)
     {
         var foundUser =
-            await _userRepository.GetUserById(id)!
+            await _userRepository.GetUserById(id)
             ?? throw new ArgumentException($"User with ID {id} not found.");
         return foundUser; 
     }
