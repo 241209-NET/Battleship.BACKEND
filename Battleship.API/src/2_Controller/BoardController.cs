@@ -1,9 +1,11 @@
 using Battleship.API.Model;
 using Battleship.API.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Battleship.API.Controller;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 
