@@ -42,9 +42,12 @@ public class UserController : ControllerBase
   
         var userLogin = await userManager.FindByEmailAsync(userLoginDTO.Email); 
 
+        //If the user exists
         if(userLogin is not null)
         {
-            if(await userManager.CheckPasswordAsync(userLogin, userLoginDTO.Password)){
+            //And if the password matches
+            if(await userManager.CheckPasswordAsync(userLogin, userLoginDTO.Password))
+            {
                 //return the JWT
                 var signInKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AppSettings:JWTSecret"]!)); 
                 

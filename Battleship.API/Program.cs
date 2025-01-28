@@ -32,8 +32,9 @@ builder.Services.AddSwaggerGen(options => {
         Name = "Authorization", 
         Description = "My auth token",
         In = ParameterLocation.Header, 
-        Type = SecuritySchemeType.ApiKey, 
-        Scheme = "Bearer"
+        Type = SecuritySchemeType.Http, 
+        Scheme = "Bearer",
+        BearerFormat = "JWT"
     }); 
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -106,13 +107,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("CorsPolicy");
-
-app.UseAuthentication(); //needed? from tutorial
-app.UseAuthorization(); //needed? from tutorial
-
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseCors("CorsPolicy");
+app.UseAuthentication(); //needed? from tutorial
+app.UseAuthorization(); //needed? from tutorial
 app.MapControllers();
 
 //app.MapIdentityApi<IdentityUser>(); //default
