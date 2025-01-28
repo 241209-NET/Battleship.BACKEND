@@ -17,7 +17,7 @@ public class GameTesting
         var newGame = new Game
         {
             Id = 1,
-            UserId = 1,
+            UserId = "1",
             Status = true,
             PlayerTurn = true,
             StartTime = "",
@@ -50,7 +50,7 @@ public class GameTesting
         var newGame = new Game
         {
             Id = 1,
-            UserId = 1,
+            UserId = "1",
             Status = true,
             PlayerTurn = true,
             StartTime = "",
@@ -80,7 +80,7 @@ public class GameTesting
         var newGame = new Game
         {
             Id = 1,
-            UserId = 1,
+            UserId = "1",
             Status = true,
             PlayerTurn = true,
             StartTime = "",
@@ -109,7 +109,7 @@ public class GameTesting
             new Game
             {
             Id = 1,
-            UserId = 1,
+            UserId = "1",
             Status = true,
             PlayerTurn = true,
             StartTime = "",
@@ -119,7 +119,7 @@ public class GameTesting
             new Game
             {
                 Id = 2,
-                UserId = 2,
+                UserId = "2",
                 Status = true,
                 PlayerTurn = true,
                 StartTime = "",
@@ -148,7 +148,7 @@ public class GameTesting
         var newGame = new Game
         {
             Id = 1,
-            UserId = 1,
+            UserId = "1",
             Status = true,
             PlayerTurn = true,
             StartTime = "",
@@ -158,7 +158,7 @@ public class GameTesting
         var updatedGame = new Game
         {
                 Id = 1,
-                UserId = 1,
+                UserId = "1",
                 Status = false,
                 PlayerTurn = false,
                 StartTime = "",

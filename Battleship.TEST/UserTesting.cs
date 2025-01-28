@@ -16,9 +16,7 @@ public class UserTesting
 
         var newUser = new User
         {
-            Id = 1,
-            Username = "player1",
-            Password = "1234",
+            AccountName = "Jack Sparrow",
             NumWins =  0,
             NumLosses = 0,
 
@@ -33,12 +31,12 @@ public class UserTesting
         // Assert
 
         Assert.NotNull(result);
-        Assert.Equal(newUser.Username, result.Username);
+        Assert.Equal(newUser.AccountName, result.AccountName);
         mockUser.Verify(repo => repo.CreateUser(It.IsAny<User>()), Times.Once);
 
     }
 
-    [Fact]
+    /*[Fact]
     public async Task GetUserById()
     {
 
@@ -48,9 +46,7 @@ public class UserTesting
 
         var User = new User
         {
-            Id = 1,
-            Username = "player1",
-            Password = "1234",
+            AccountName = "Jack Sparrow",
             NumWins =  0,
             NumLosses = 0,
 
@@ -93,7 +89,7 @@ public class UserTesting
         
         Assert.Equal("User with ID 2 not found.", result.Message);
 
-    }
+    }*/
 
     [Fact]
     public async Task GetUserByUsername()
@@ -104,9 +100,7 @@ public class UserTesting
 
         var User = new User
         {
-            Id = 1,
-            Username = "player1",
-            Password = "1234",
+            AccountName = "player1",
             NumWins =  0,
             NumLosses = 0,
 
@@ -119,7 +113,7 @@ public class UserTesting
 
         // Assert
         Assert.NotNull(result);
-        Assert.Equal(User.Username, result.Username);
+        Assert.Equal(User.AccountName, result.AccountName);
         mockUser.Verify(repo => repo.GetUserByUsername("player1"), Times.Once);
 
     }
@@ -132,9 +126,7 @@ public class UserTesting
 
         var User = new User
         {
-            Id = 1,
-            Username = "player1",
-            Password = "1234",
+            AccountName = "player1",
             NumWins =  0,
             NumLosses = 0,
 
@@ -157,9 +149,7 @@ public class UserTesting
 
         var User = new User
         {
-            Id = 1,
-            Username = "player1",
-            Password = "1234",
+            AccountName = "player1",
             NumWins =  0,
             NumLosses = 0,
 

@@ -37,7 +37,7 @@ public class CellFiredTesting
         {
             Id = 1,
             GameId = 1,
-            UserId = 1,
+            UserId = "1",
             IsComputerBoard = false
         };
 
@@ -86,7 +86,7 @@ public class CellFiredTesting
         {
             Id = 1,
             GameId = 1,
-            UserId = 1,
+            UserId = "1",
             IsComputerBoard = false
         };
 
@@ -135,7 +135,7 @@ public class CellFiredTesting
         {
             Id = 1,
             GameId = 1,
-            UserId = 1,
+            UserId = "1",
             IsComputerBoard = false
         };
 
@@ -143,7 +143,7 @@ public class CellFiredTesting
         {
             Id = 2,
             GameId = 1,
-            UserId = 1,
+            UserId = "1",
             IsComputerBoard = false
         };
 
@@ -331,7 +331,7 @@ public class CellFiredTesting
         {
             Id = 1,
             GameId = 1,
-            UserId = 1,
+            UserId = "1",
             IsComputerBoard = false
         };
 
@@ -339,7 +339,7 @@ public class CellFiredTesting
         {
             Id = 2,
             GameId = 1,
-            UserId = 1,
+            UserId = "1",
             IsComputerBoard = false
         };
 

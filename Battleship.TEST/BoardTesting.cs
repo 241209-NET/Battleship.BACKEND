@@ -20,7 +20,7 @@ public class BoardTesting
     {
         Id = 1,
         GameId = 1,
-        UserId = 1,
+        UserId = "1",
         IsComputerBoard = false
     };
 
@@ -28,7 +28,7 @@ public class BoardTesting
     {
         Id = 2,
         GameId = 1,
-        UserId = 1,
+        UserId = "1",
         IsComputerBoard = false
     };
 
@@ -58,7 +58,7 @@ public class BoardTesting
     {
         Id = 1,
         GameId = 1,
-        UserId = 1,
+        UserId = "1",
         IsComputerBoard = false
     };
 
@@ -66,7 +66,7 @@ public class BoardTesting
     {
         Id = 2,
         GameId = 1,
-        UserId = 1,
+        UserId = "1",
         IsComputerBoard = false
     };
 
@@ -95,7 +95,7 @@ public class BoardTesting
     {
         Id = 1,
         GameId = 1,
-        UserId = 1,
+        UserId = "1",
         IsComputerBoard = false
     };
 
@@ -103,7 +103,7 @@ public class BoardTesting
     {
         Id = 2,
         GameId = 1,
-        UserId = 1,
+        UserId = "1",
         IsComputerBoard = false
     };
 
@@ -132,7 +132,7 @@ public class BoardTesting
     {
         Id = 1,
         GameId = 1,
-        UserId = 1,
+        UserId = "1",
         IsComputerBoard = false
     };
 
@@ -140,7 +140,7 @@ public class BoardTesting
     {
         Id = 2,
         GameId = 1,
-        UserId = 1,
+        UserId = "1",
         IsComputerBoard = false
     };
 
@@ -148,14 +148,14 @@ public class BoardTesting
     {
         Id = 3,
         GameId = 2,
-        UserId = 1,
+        UserId = "1",
         IsComputerBoard = false
     };
 
     Game game1 = new()
     {
         Id = 1,
-        UserId = 1,
+        UserId = "1",
         Status = true,
         PlayerTurn = true,
         StartTime = DateTime.Now.ToString(),
@@ -166,7 +166,7 @@ public class BoardTesting
         Game game2 = new()
     {
         Id = 2,
-        UserId = 1,
+        UserId = "1",
         Status = true,
         PlayerTurn = true,
         StartTime = DateTime.Now.ToString(),
@@ -211,7 +211,7 @@ public class BoardTesting
     {
         Id = 1,
         GameId = 1,
-        UserId = 1,
+        UserId = "1",
         IsComputerBoard = false
     };
 
@@ -219,7 +219,7 @@ public class BoardTesting
     {
         Id = 2,
         GameId = 1,
-        UserId = 1,
+        UserId = "1",
         IsComputerBoard = false
     };
 
@@ -227,14 +227,14 @@ public class BoardTesting
     {
         Id = 3,
         GameId = 2,
-        UserId = 1,
+        UserId = "1",
         IsComputerBoard = false
     };
 
     Game game = new()
     {
         Id = 1,
-        UserId = 1,
+        UserId = "1",
         Status = true,
         PlayerTurn = true,
         StartTime = DateTime.Now.ToString(),
