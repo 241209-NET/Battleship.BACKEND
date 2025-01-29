@@ -83,10 +83,10 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllUsers(){
+    public async Task<IActionResult> GetAllUserScores(){
         try
         {
-            var res = await _userService.GetAllUsers();
+            var res = await _userService.GetAllUserScores();
             return Ok(res);
         } 
         catch (Exception e)

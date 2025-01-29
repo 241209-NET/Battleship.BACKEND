@@ -49,5 +49,6 @@ public interface IUserService{
     Task<User>? GetUserByUsername(string username);
     Task<IEnumerable<User>> GetAllUsers();
     public Task<UserScoreDTO> UpdateUserScore(string userId, int wins, int losses);
+    public Task<IEnumerable<UserScoreDTO>> GetAllUserScores(); 
     
 }

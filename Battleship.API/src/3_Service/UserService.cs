@@ -60,4 +60,16 @@ public class UserService : IUserService
         return updateUserScore; 
     }
 
+    public async Task<IEnumerable<UserScoreDTO>> GetAllUserScores()
+    {
+        var dtoList = new List<UserScoreDTO>(); 
+        var userList = await _userRepository.GetAllUsers();
+        foreach(var user in userList){
+            UserScoreDTO score = new(){AccountName = user.AccountName, Wins = user.NumWins, Losses = user.NumLosses};
+            dtoList.Add(score); 
+        }
+
+        return dtoList; 
+    }
+
 }
