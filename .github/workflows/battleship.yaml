@@ -1,8 +1,8 @@
 name: Battleship Docker Image CI
 
 env:
-  - AZURE_WEBAPP_NAME: battleship
-  - Name: Azure 
+  AZURE_WEBAPP_NAME: battleship
+  Name: Azure
 
 # Triggers - what will cause this workflow/pipeline to run
 on:
