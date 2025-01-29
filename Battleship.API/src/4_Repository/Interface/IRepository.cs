@@ -47,5 +47,6 @@ public interface IUserRepository{
     Task<User>? GetUserByUsername(string username);
 
     Task<IEnumerable<User>> GetAllUsers();
+    public Task<User> UpdateUserScore(string userId, int wins, int losses);
     
 }

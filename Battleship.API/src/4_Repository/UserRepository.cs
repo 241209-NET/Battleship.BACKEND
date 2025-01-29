@@ -35,4 +35,18 @@ public class UserRepository : IUserRepository
         return await _battleshipContext.Users.ToListAsync();
     }
 
+    public async Task<User> UpdateUserScore(string userId, int wins, int losses)
+    {
+        User updateUser = await GetUserById(userId); 
+        if(wins > 0){
+            updateUser.NumWins++; 
+        }
+        else if(losses > 0){
+            updateUser.NumLosses++; 
+        }
+        await _battleshipContext.SaveChangesAsync(); 
+        return updateUser; 
+
+    }
+
 }

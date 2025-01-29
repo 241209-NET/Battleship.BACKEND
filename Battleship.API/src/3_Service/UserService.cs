@@ -1,5 +1,6 @@
 using Battleship.API.Repository;
 using Battleship.API.Model;
+using Battleship.API.DTO;
 
 namespace Battleship.API.Service;
 
@@ -50,6 +51,13 @@ public class UserService : IUserService
 
     public async Task<IEnumerable<User>> GetAllUsers(){
         return await _userRepository.GetAllUsers();
+    }
+
+    public async Task<UserScoreDTO> UpdateUserScore(string userId, int wins, int losses)
+    {
+        User updateUser = await _userRepository.UpdateUserScore(userId, wins, losses); 
+        UserScoreDTO updateUserScore = new(){Wins = updateUser.NumWins, Losses = updateUser.NumLosses};
+        return updateUserScore; 
     }
 
 }

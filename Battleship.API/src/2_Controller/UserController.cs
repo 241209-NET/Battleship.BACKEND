@@ -112,6 +112,22 @@ public class UserController : ControllerBase
         }
     }
 
+    [Authorize]
+    [HttpPatch("/UpdateScore")]
+    public async Task<IActionResult> UpdateUserScore(int wins, int losses)
+    {
+        try{
+            ClaimsPrincipal user = _http.HttpContext.User;
+            string userID = user.Claims.First(x => x.Type == "UserID").Value; 
+            var res = await _userService.UpdateUserScore(userID, wins, losses);
+            return Ok(res); 
+
+        }catch{
+            return Unauthorized(); 
+        }
+
+    }
+
     // [HttpGet("{username}")]
     // public IActionResult GetAccountInfo(string username)
     // {
