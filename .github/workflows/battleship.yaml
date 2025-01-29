@@ -11,13 +11,13 @@ on:
       - main
 
     paths:
-      - ./**
+      - Battleship.API/**
   pull_request:
     branches: 
       - main
 
     paths:
-      - ./**
+      - Battleship.API/**
   workflow_dispatch: # a manual trigger, so I get a button to press to start the pipeline if I want to!
 
 jobs: # the job is the set of tasks that will be hosted and run on the same agent
@@ -48,8 +48,8 @@ jobs: # the job is the set of tasks that will be hosted and run on the same agen
     - name: Build and push Docker images
       uses: docker/build-push-action@v6.11.0
       with:
-        context: ./
-        file: ./Dockerfile
+        context: ./Battleship.API/
+        file: ./Battleship.API/Dockerfile
         push: true
         tags: index.docker.io/gvamsius/battleship:latest, index.docker.io/gvamsius/battleship:${{ github.sha }}
 
