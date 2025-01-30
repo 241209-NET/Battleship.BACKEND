@@ -38,7 +38,7 @@ jobs: # the job is the set of tasks that will be hosted and run on the same agen
 
     # Step 3. Run xUnit tests
     - name: Test
-      run: dotnet test
+      run: dotnet test --logger "trx;LogFileName=test-results.trx" || true
 
     # Step 4: login to docker
     - name: Docker Login
