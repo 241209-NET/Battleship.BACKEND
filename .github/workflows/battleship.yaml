@@ -27,9 +27,14 @@ jobs: # the job is the set of tasks that will be hosted and run on the same agen
     # githubs agents are a blank slate with every workflow
     # private build agent can speed up the workflow by already having dependencies installd
     permissions:
+      # pull-requests: write
+      # issues: write
+      # repository-projects: write
       pull-requests: write
-      issues: write
-      repository-projects: write
+      contents: write
+      statuses: write
+      checks: write
+      actions: write
 
     steps: # what processess/steps will the JOB need to do?
     # Step 1: clone the repo
