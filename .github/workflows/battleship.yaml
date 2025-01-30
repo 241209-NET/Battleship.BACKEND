@@ -38,7 +38,7 @@ jobs: # the job is the set of tasks that will be hosted and run on the same agen
 
     # Step 3. Run xUnit tests
     - name: Test
-      run: dotnet test Battleship.TEST/Battleship.TEST.csproj --configuration Release --no-build
+      run: dotnet test
 
     # Step 4: login to docker
     - name: Docker Login
