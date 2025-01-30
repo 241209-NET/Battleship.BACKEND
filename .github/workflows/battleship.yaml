@@ -4,6 +4,10 @@ env:
   AZURE_WEBAPP_NAME: battleship
   Name: Azure
 
+permissions:
+  pull-requests: write
+  issues: write
+  repository-projects: write
 # Triggers - what will cause this workflow/pipeline to run
 on:
   push:
@@ -45,7 +49,7 @@ jobs: # the job is the set of tasks that will be hosted and run on the same agen
       uses: dorny/test-reporter@v1
       if: always()
       with:
-        name: DotNet Tests
+        name: DotNET Tests
         path: "**/test-results.trx"
         reporter: dotnet-trx
         fail-on-error: true
