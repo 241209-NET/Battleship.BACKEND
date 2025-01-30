@@ -93,27 +93,27 @@ jobs: # the job is the set of tasks that will be hosted and run on the same agen
         path: coveragereport # Directory containing files to upload
 
     # Step 5: login to docker
-    # - name: Docker Login
-    #   uses: docker/login-action@v3.3.0
-    #   with:
-    #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-    #     # Password or personal access token used to log against the Docker registry
-    #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Docker Login
+      uses: docker/login-action@v3.3.0
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        # Password or personal access token used to log against the Docker registry
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    # # Step 6: build and push a docker image
-    # - name: Build and push Docker images
-    #   uses: docker/build-push-action@v6.11.0
-    #   with:
-    #     context: ./Battleship.API/
-    #     file: ./Battleship.API/Dockerfile
-    #     push: true
-    #     tags: index.docker.io/gvamsius/battleship:latest, index.docker.io/gvamsius/battleship:${{ github.sha }}
+    # Step 6: build and push a docker image
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v6.11.0
+      with:
+        context: ./Battleship.API/
+        file: ./Battleship.API/Dockerfile
+        push: true
+        tags: index.docker.io/gvamsius/battleship:latest, index.docker.io/gvamsius/battleship:${{ github.sha }}
 
-    # # Step 7: deploy the image to Azure
-    # - name: Deploy to Azure Web App
-    #   id: deploy-to-webapp
-    #   uses: azure/webapps-deploy@v2
-    #   with:
-    #     app-name: ${{ env.AZURE_WEBAPP_NAME }}
-    #     publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-    #     images: index.docker.io/gvamsius/battleship:${{ github.sha }}
+    # Step 7: deploy the image to Azure
+    - name: Deploy to Azure Web App
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        images: index.docker.io/gvamsius/battleship:${{ github.sha }}
