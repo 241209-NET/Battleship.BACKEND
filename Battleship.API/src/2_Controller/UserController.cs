@@ -103,7 +103,7 @@ public class UserController : ControllerBase
             string userID = user.Claims.First(x => x.Type == "UserID").Value; 
 
             var res = await _userService.GetUserById(userID);
-            UserScoreDTO score = new UserScoreDTO(){Wins = res.NumWins, Losses = res.NumLosses}; 
+            UserScoreDTO score = new(){Wins = res.NumWins, Losses = res.NumLosses}; 
             return Ok(score);
         } 
         catch (Exception e)
